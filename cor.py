@@ -9,21 +9,22 @@ import os
 class WebScraper(Thread):
     thread_stop = False
 
-    def __init__(self):
+    def __init__(self, callback=None):
         super().__init__()
+        self.callback_func = callback
         print('WebScraper -> init')
         self.scheduler = schedule.Scheduler()
 
     def scrape_data(self):
-        GOOGLE_CHROME_PATH = '/app/.apt/opt/google/chrome/google-chrome'
-        CHROMEDRIVER_PATH = '/app/.apt/opt/google/chrome/google-chrome'
+        chrome_bin = os.environ.get('GOOGLE_CHROME_SHIM', 'C:\bin\chromedriver.exe')
         print('scrape_data -> started', threading.get_ident())
         options = webdriver.ChromeOptions()
         options.add_argument('ignore-certificate-errors')
         options.add_argument('--disable-gpu')
         options.add_argument('--no-sandbox')
         options.add_argument("--headless")
-        options.binary_location = GOOGLE_CHROME_PATH
+        if os.environ.get('GOOGLE_CHROME_SHIM', None) is not None:
+            options.binary_location = chrome_bin
 
 
         print("corona data file is being created.... please wait.")
@@ -48,7 +49,7 @@ class WebScraper(Thread):
                 death = skgm_tds[i+4].get_attribute('innerHTML').strip().replace('\n','')
 
                 districts.append([state,district, case, cured, active, death])
-
+            print('Got values for state :', state)
             state_district.extend(districts)
 
         f = open("sample.csv", "w+")
@@ -63,9 +64,13 @@ class WebScraper(Thread):
 
     def run(self):
         print("web_scraper_thread -> started", threading.get_ident())
-        self.scheduler.every().day.at("22:30").do(self.scrape_data)
-        # self.scheduler.every(1).minutes.do(self.scrape_data)
-        # self.scrape_data()
-        while not self.thread_stop:
-            self.scheduler.run_pending() 
-            time.sleep(1)
+        if self.callback_func is not None:
+            self.scrape_data()
+            self.callback_func()
+        else:
+            self.scheduler.every().day.at("22:30").do(self.scrape_data)
+            # self.scheduler.every(1).minutes.do(self.scrape_data)
+            # self.scrape_data()
+            while not self.thread_stop:
+                self.scheduler.run_pending() 
+                time.sleep(1)

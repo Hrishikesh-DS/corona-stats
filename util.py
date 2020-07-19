@@ -5,13 +5,16 @@ import os
 import os.path
 from os import path
 from cor import WebScraper
+import threading
 
 __states=None
 __districts=None
 
 def load_states():
     global __states
+    print('calling read_samplce_csv')
     df=read_sample_csv()
+    print('got response from read_samplce_csv')
     __states=df['state'].unique()
     __states = __states.tolist()
 
@@ -34,8 +37,11 @@ def add_and_get_email(district,email):
 
 def read_sample_csv():
     if not path.exists('sample.csv'):
-        WebScraper().scrape_data()
-    return pd.read_csv("sample.csv")
+        t = WebScraper(callback=load_states)
+        t.start()
+        return pd.DataFrame(data= [[None for _ in range(6)]], columns=('state','district','case','cured','active','death'))
+    else:
+        return pd.read_csv("sample.csv")
 if __name__=='__main__':
     load_states()
     load_district()
