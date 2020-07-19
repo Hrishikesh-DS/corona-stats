@@ -108,9 +108,9 @@ h2 {
 	  background: url('images/india.jpg');
 		background-repeat: no-repeat;
 	  background-size: auto;
-	  background-size:600px 100%;
+	  background-size:60% 100%;
 	  position: fixed;
-	  width: 100%;
+	  width: 60%;
 	  height: 100%;
 	  top: 0;
 	  left: 0;

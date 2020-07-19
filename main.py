@@ -6,6 +6,7 @@ import threading
 import time
 from cor import WebScraper
 from emails import MailServer
+from flask import render_template
 
 app = Flask(__name__)
 app.config.update(
@@ -29,6 +30,10 @@ __active=df['active'].tolist()
 __death=df['death'].tolist()
 
 state=''
+
+@app.route('/', methods=['GET'])
+def home():
+    return render_template("app.html") 
 
 @app.route('/get_state_names', methods=['GET'])
 def get_state_names():
