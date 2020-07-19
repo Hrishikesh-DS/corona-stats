@@ -23,11 +23,11 @@ class WebScraper(Thread):
         options.add_argument('--disable-gpu')
         options.add_argument('--no-sandbox')
         options.add_argument("--headless")
-        options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        chrome_options.binary_location = GOOGLE_CHROME_PATH
 
 
         print("corona data file is being created.... please wait.")
-        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options)
+        driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, options=options)
         driver.get('https://www.grainmart.in/news/covid-19-coronavirus-india-state-and-district-wise-tally/')
 
         state_district = []
