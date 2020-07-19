@@ -4,6 +4,7 @@ from threading import Thread
 import threading
 import schedule
 import time
+import os
 
 class WebScraper(Thread):
     thread_stop = False
