@@ -18,19 +18,17 @@ class MailServer(Thread):
         print('MailServer -> init')
         self.scheduler = schedule.Scheduler()
         self.app = app_input
-        self.mail=Mail(self.app)
-        
         self.app.config.update(
             DEBUG=True,
             #EMAIL SETTINGS
             MAIL_SERVER='smtp.gmail.com',
-            MAIL_PORT=587,
-            MAIL_USE_TLS =True,
-            MAIL_USE_SSL=False,
+            MAIL_PORT=465,
+            MAIL_USE_SSL=True,
             MAIL_USERNAME = 'dshrishikesh@gmail.com',
-            MAIL_PASSWORD = 'pkaqowhrwtdsvorp',
+            MAIL_PASSWORD = 'ltzehzwzbwqklfbs',
             MAIL_DEFAULT_SENDER='dshrishikesh@gmail.com',
         )
+        self.mail=Mail(self.app)
 
     def send_email(self):
         if path.exists("userID.csv"):
@@ -57,7 +55,7 @@ class MailServer(Thread):
 
     def run(self):
         print("mail_server -> started", threading.get_ident())
-        self.scheduler.every().day.at("21:00").do(self.send_email)
+        self.scheduler.every().day.at("21:21").do(self.send_email)
         # self.scheduler.every(30).seconds.do(self.send_email)
         # self.send_email()
         while not self.thread_stop:
