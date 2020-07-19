@@ -23,7 +23,7 @@ class WebScraper(Thread):
         options.add_argument('--disable-gpu')
         options.add_argument('--no-sandbox')
         options.add_argument("--headless")
-        chrome_options.binary_location = GOOGLE_CHROME_PATH
+        options.binary_location = GOOGLE_CHROME_PATH
 
 
         print("corona data file is being created.... please wait.")
