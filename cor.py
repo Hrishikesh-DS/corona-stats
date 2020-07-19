@@ -44,7 +44,7 @@ class WebScraper(Thread):
 
             state_district.extend(districts)
 
-        f = open("sample.csv", "w")
+        f = open("sample.csv", "w+")
         f.truncate()
         writer = csv.DictWriter(f, fieldnames=['state','district', 'case', 'cured', 'active', 'death'])
         writer.writeheader()

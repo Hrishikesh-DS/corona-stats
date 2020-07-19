@@ -6,23 +6,30 @@ import time
 from flask import Flask, request, jsonify, render_template
 from flask_mail import Mail, Message
 import smtplib 
+import os.path
+from os import path
+import pandas as pd
 
 class MailServer(Thread):
     thread_stop = False
 
-    def __init__(self, app_input, df):
+    def __init__(self, app_input):
         super(MailServer, self).__init__()
         print('MailServer -> init')
         self.scheduler = schedule.Scheduler()
         self.app = app_input
-        self.mail=Mail(self.app)
-        self.__email=df['email'].tolist()
-        self.__state=df['state'].tolist()
-        self.__district=df['district'].tolist()
-        self.__case=df['case'].tolist()
-        self.__cured=df['cured'].tolist()
-        self.__active=df['active'].tolist()
-        self.__death=df['death'].tolist()
+        if path.exists("userID.csv"):
+            df=pd.read_csv("userID.csv")
+            self.mail=Mail(self.app)
+            self.__email=df['email'].tolist()
+            self.__state=df['state'].tolist()
+            self.__district=df['district'].tolist()
+            self.__case=df['case'].tolist()
+            self.__cured=df['cured'].tolist()
+            self.__active=df['active'].tolist()
+            self.__death=df['death'].tolist()
+        else:
+            self.thread_stop = True
 
     def send_email(self):
         print("send_email -> call", threading.get_ident())

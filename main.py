@@ -20,15 +20,6 @@ app.config.update(
     MAIL_DEFAULT_SENDER='dshrishikesh@gmail.com',
 	)
 
-df=pd.read_csv("userID.csv")
-__email=df['email'].tolist()
-__state=df['state'].tolist()
-__district=df['district'].tolist()
-__case=df['case'].tolist()
-__cured=df['cured'].tolist()
-__active=df['active'].tolist()
-__death=df['death'].tolist()
-
 state=''
 
 @app.route('/', methods=['GET'])
@@ -68,6 +59,7 @@ def send_mail():
     
 if __name__ == "__main__":
     print("Starting Python Flask Server coronavirus stats...")
+    print('Main thread id :', threading.get_ident())
     util.load_states()
     hst = '127.0.0.1'
     prt = 5000
@@ -77,7 +69,7 @@ if __name__ == "__main__":
     print('Thread creation')
     web_scraper_thread = WebScraper()
     web_scraper_thread.start()
-    mail_thread = MailServer(app, df)
+    mail_thread = MailServer(app)
     mail_thread.start()
     print('Thread creation done')
     app.run(host=hst, port=int(prt), debug=False)
