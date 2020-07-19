@@ -15,8 +15,8 @@ class WebScraper(Thread):
         self.scheduler = schedule.Scheduler()
 
     def scrape_data(self):
-        GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
-        CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+        GOOGLE_CHROME_PATH = '/app/.apt/opt/google/chrome/google-chrome'
+        CHROMEDRIVER_PATH = '/app/.apt/opt/google/chrome/google-chrome'
         print('scrape_data -> started', threading.get_ident())
         options = webdriver.ChromeOptions()
         options.add_argument('ignore-certificate-errors')
@@ -27,7 +27,7 @@ class WebScraper(Thread):
 
 
         print("corona data file is being created.... please wait.")
-        driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, options=options)
+        driver = webdriver.Chrome(executable_path='chromedriver', options=options)
         driver.get('https://www.grainmart.in/news/covid-19-coronavirus-india-state-and-district-wise-tally/')
 
         state_district = []
