@@ -59,6 +59,9 @@ def send_mail():
     
 if __name__ == "__main__":
     print("Starting Python Flask Server coronavirus stats...")
+    t = time.localtime()
+    current_time = time.strftime("%H:%M:%S", t)
+    print('Server time :', current_time)
     print('Main thread id :', threading.get_ident())
     util.load_states()
     hst = '127.0.0.1'

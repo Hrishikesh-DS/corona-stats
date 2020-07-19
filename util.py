@@ -33,6 +33,7 @@ def add_and_get_email(district,email):
     inpds=df.loc[df['district']==district]
     inpds['email']=email
     inpds.to_csv(r'userID.csv',mode='a',header=False,index=False,quoting=csv.QUOTE_NONNUMERIC)
+    print('added email :', email)
     return inpds.values.tolist()
 
 def read_sample_csv():
