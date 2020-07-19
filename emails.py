@@ -55,7 +55,7 @@ class MailServer(Thread):
 
     def run(self):
         print("mail_server -> started", threading.get_ident())
-        self.scheduler.every().day.at("21:21").do(self.send_email)
+        self.scheduler.every().day.at("15:30").do(self.send_email)
         # self.scheduler.every(30).seconds.do(self.send_email)
         # self.send_email()
         while not self.thread_stop:
