@@ -24,12 +24,12 @@ class MailServer(Thread):
             DEBUG=True,
             #EMAIL SETTINGS
             MAIL_SERVER='smtp.gmail.com',
-            MAIL_PORT=465,
+            MAIL_PORT=587,
             MAIL_USE_SSL=True,
             MAIL_USERNAME = 'dshrishikesh@gmail.com',
             MAIL_PASSWORD = 'pkaqowhrwtdsvorp',
             MAIL_DEFAULT_SENDER='dshrishikesh@gmail.com',
-            )
+        )
 
     def send_email(self):
         if path.exists("userID.csv"):
@@ -56,7 +56,7 @@ class MailServer(Thread):
 
     def run(self):
         print("mail_server -> started", threading.get_ident())
-        self.scheduler.every().day.at("20:44").do(self.send_email)
+        self.scheduler.every().day.at("20:54").do(self.send_email)
         # self.scheduler.every(30).seconds.do(self.send_email)
         # self.send_email()
         while not self.thread_stop:
