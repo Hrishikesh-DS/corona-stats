@@ -56,7 +56,7 @@ class WebScraper(Thread):
 
     def run(self):
         print("web_scraper_thread -> started", threading.get_ident())
-        self.scheduler.every().day.at("21:10").do(self.scrape_data)
+        self.scheduler.every().day.at("22:30").do(self.scrape_data)
         # self.scheduler.every(1).minutes.do(self.scrape_data)
         # self.scrape_data()
         while not self.thread_stop:
