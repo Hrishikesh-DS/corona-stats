@@ -1,8 +1,6 @@
 function getState() {
-  // var rootPath = '@URL.Content("~")';
   console.log( "document loaded" );
-  // var url = "http://127.0.0.1:5000/get_location_names";
-  var url = "http://127.0.0.1:5000/get_state_names"; // Use this if  you are using nginx. i.e tutorial 8 and onwards
+  var url = "/get_state_names"; // Use this if  you are using nginx. i.e tutorial 8 and onwards
   $.get(url,function(data, status) {
       console.log("got response for get_state_names request");
       if(data) {
@@ -23,7 +21,7 @@ function getDistrict() {
 
     console.log( "document loaded" );
 
-    var url = "http://127.0.0.1:5000/load_districts";
+    var url = "/load_districts";
     $.post(url, {
         state: selectedState.value
     }, function(data, status) {
@@ -47,7 +45,7 @@ function sendMail(){
     var district=document.getElementById("uiDistricts");
     var mail=document.getElementById("uiEmail");
 
-    var url="http://127.0.0.1:5000/send_mail";
+    var url="/send_mail";
     $.post(url, {
         district:district.value,
         mail:mail.value
