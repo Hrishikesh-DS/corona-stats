@@ -19,7 +19,7 @@ class MailServer(Thread):
         self.scheduler = schedule.Scheduler()
         self.app = app_input
         if path.exists("userID.csv"):
-            df=pd.read_csv("userID.csv")
+            df=pd.read_csv("userID.csv", names=['state','district', 'case', 'cured', 'active', 'death', 'email'])
             self.mail=Mail(self.app)
             self.__email=df['email'].tolist()
             self.__state=df['state'].tolist()
@@ -44,7 +44,7 @@ class MailServer(Thread):
 
     def run(self):
         print("mail_server -> started", threading.get_ident())
-        self.scheduler.every().day.at("19:57").do(self.send_email)
+        self.scheduler.every().day.at("20:14").do(self.send_email)
         # self.scheduler.every(30).seconds.do(self.send_email)
         # self.send_email()
         while not self.thread_stop:
