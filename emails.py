@@ -18,33 +18,34 @@ class MailServer(Thread):
         print('MailServer -> init')
         self.scheduler = schedule.Scheduler()
         self.app = app_input
-        if path.exists("userID.csv"):
-            df=pd.read_csv("userID.csv", names=['state','district', 'case', 'cured', 'active', 'death', 'email'])
-            self.mail=Mail(self.app)
-            self.__email=df['email'].tolist()
-            self.__state=df['state'].tolist()
-            self.__district=df['district'].tolist()
-            self.__case=df['case'].tolist()
-            self.__cured=df['cured'].tolist()
-            self.__active=df['active'].tolist()
-            self.__death=df['death'].tolist()
-        else:
-            self.__email = []
 
     def send_email(self):
+        if path.exists("userID.csv"):
+            df=pd.read_csv("userID.csv", names=['state','district', 'case', 'cured', 'active', 'death', 'email'])
+            mail=Mail(self.app)
+            __email=df['email'].tolist()
+            __state=df['state'].tolist()
+            __district=df['district'].tolist()
+            __case=df['case'].tolist()
+            __cured=df['cured'].tolist()
+            __active=df['active'].tolist()
+            __death=df['death'].tolist()
+        else:
+            __email = []
         print("send_email -> call", threading.get_ident())
         with self.app.app_context():
-            for id in range(len(self.__email)):
+            print('length of emails list :', len(__email))
+            for id in range(len(__email)):
                 msg=Message("COVID-19 Stats",
                     sender="dshrishikesh@gmail.com",
-                    recipients=[self.__email[id]])
+                    recipients=[__email[id]])
                 
-                msg.body="State: {} \nDistrict: {} \nCases: {} \nCured: {} \nActive: {} \nDeath: {} \n".format(self.__state[id], self.__district[id], self.__case[id], self.__cured[id], self.__active[id], self.__death[id])
-                self.mail.send(msg)
+                msg.body="State: {} \nDistrict: {} \nCases: {} \nCured: {} \nActive: {} \nDeath: {} \n".format(__state[id],__district[id], __case[id], __cured[id], __active[id], __death[id])
+                mail.send(msg)
 
     def run(self):
         print("mail_server -> started", threading.get_ident())
-        self.scheduler.every().day.at("20:14").do(self.send_email)
+        self.scheduler.every().day.at("20:27").do(self.send_email)
         # self.scheduler.every(30).seconds.do(self.send_email)
         # self.send_email()
         while not self.thread_stop:
