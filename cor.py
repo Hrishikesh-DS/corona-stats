@@ -68,7 +68,7 @@ class WebScraper(Thread):
             self.scrape_data()
             self.callback_func()
         else:
-            self.scheduler.every().day.at("22:30").do(self.scrape_data)
+            self.scheduler.every().day.at("01:15").do(self.scrape_data)
             # self.scheduler.every(1).minutes.do(self.scrape_data)
             # self.scrape_data()
             while not self.thread_stop:
