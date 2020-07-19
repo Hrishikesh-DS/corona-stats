@@ -25,7 +25,7 @@ class WebScraper(Thread):
 
 
         print("corona data file is being created.... please wait.")
-        driver = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, options=options)
+        driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, options=options)
         driver.get('https://www.grainmart.in/news/covid-19-coronavirus-india-state-and-district-wise-tally/')
 
         state_district = []
