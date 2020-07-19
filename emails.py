@@ -29,7 +29,7 @@ class MailServer(Thread):
             self.__active=df['active'].tolist()
             self.__death=df['death'].tolist()
         else:
-            self.thread_stop = True
+            self.__email = []
 
     def send_email(self):
         print("send_email -> call", threading.get_ident())

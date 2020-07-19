@@ -14,13 +14,18 @@ class WebScraper(Thread):
         self.scheduler = schedule.Scheduler()
 
     def scrape_data(self):
+        GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+        CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
         print('scrape_data -> started', threading.get_ident())
         options = webdriver.ChromeOptions()
         options.add_argument('ignore-certificate-errors')
+        options.add_argument('--disable-gpu')
+        options.add_argument('--no-sandbox')
+        options.binary_location = GOOGLE_CHROME_PATH
 
 
         print("corona data file is being created.... please wait.")
-        driver = webdriver.Chrome(executable_path=r'C:\bin\chromedriver.exe',options=options)
+        driver = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, options=options)
         driver.get('https://www.grainmart.in/news/covid-19-coronavirus-india-state-and-district-wise-tally/')
 
         state_district = []
