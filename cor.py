@@ -17,7 +17,7 @@ class WebScraper(Thread):
         GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
         CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
         print('scrape_data -> started', threading.get_ident())
-        options = webdriver.ChromeOptions()
+        options = Options()
         options.add_argument('ignore-certificate-errors')
         options.add_argument('--disable-gpu')
         options.add_argument('--no-sandbox')
