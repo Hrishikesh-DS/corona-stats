@@ -18,11 +18,22 @@ class MailServer(Thread):
         print('MailServer -> init')
         self.scheduler = schedule.Scheduler()
         self.app = app_input
+        self.mail=Mail(self.app)
+        
+        self.app.config.update(
+            DEBUG=True,
+            #EMAIL SETTINGS
+            MAIL_SERVER='smtp.gmail.com',
+            MAIL_PORT=465,
+            MAIL_USE_SSL=True,
+            MAIL_USERNAME = 'dshrishikesh@gmail.com',
+            MAIL_PASSWORD = 'pkaqowhrwtdsvorp',
+            MAIL_DEFAULT_SENDER='dshrishikesh@gmail.com',
+            )
 
     def send_email(self):
         if path.exists("userID.csv"):
             df=pd.read_csv("userID.csv", names=['state','district', 'case', 'cured', 'active', 'death', 'email'])
-            mail=Mail(self.app)
             __email=df['email'].tolist()
             __state=df['state'].tolist()
             __district=df['district'].tolist()
@@ -41,11 +52,11 @@ class MailServer(Thread):
                     recipients=[__email[id]])
                 
                 msg.body="State: {} \nDistrict: {} \nCases: {} \nCured: {} \nActive: {} \nDeath: {} \n".format(__state[id],__district[id], __case[id], __cured[id], __active[id], __death[id])
-                mail.send(msg)
+                self.mail.send(msg)
 
     def run(self):
         print("mail_server -> started", threading.get_ident())
-        self.scheduler.every().day.at("20:32").do(self.send_email)
+        self.scheduler.every().day.at("20:44").do(self.send_email)
         # self.scheduler.every(30).seconds.do(self.send_email)
         # self.send_email()
         while not self.thread_stop:

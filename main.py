@@ -9,16 +9,6 @@ from emails import MailServer
 from flask import render_template
 
 app = Flask(__name__)
-app.config.update(
-	DEBUG=True,
-	#EMAIL SETTINGS
-	MAIL_SERVER='smtp.gmail.com',
-	MAIL_PORT=465,
-    MAIL_USE_SSL=True,
-	MAIL_USERNAME = 'dshrishikesh@gmail.com',
-	MAIL_PASSWORD = 'pkaqowhrwtdsvorp',
-    MAIL_DEFAULT_SENDER='dshrishikesh@gmail.com',
-	)
 
 state=''
 
