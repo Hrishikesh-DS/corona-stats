@@ -17,15 +17,16 @@ class WebScraper(Thread):
         GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
         CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
         print('scrape_data -> started', threading.get_ident())
-        options = Options()
+        options = webdriver.ChromeOptions()
         options.add_argument('ignore-certificate-errors')
         options.add_argument('--disable-gpu')
         options.add_argument('--no-sandbox')
-        options.binary_location = GOOGLE_CHROME_PATH
+        options.add_argument("--headless")
+        options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 
 
         print("corona data file is being created.... please wait.")
-        driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, options=options)
+        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options)
         driver.get('https://www.grainmart.in/news/covid-19-coronavirus-india-state-and-district-wise-tally/')
 
         state_district = []
