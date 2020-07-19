@@ -25,7 +25,8 @@ class MailServer(Thread):
             #EMAIL SETTINGS
             MAIL_SERVER='smtp.gmail.com',
             MAIL_PORT=587,
-            MAIL_USE_SSL=True,
+            MAIL_USE_TLS =True,
+            MAIL_USE_SSL=False,
             MAIL_USERNAME = 'dshrishikesh@gmail.com',
             MAIL_PASSWORD = 'pkaqowhrwtdsvorp',
             MAIL_DEFAULT_SENDER='dshrishikesh@gmail.com',
@@ -56,7 +57,7 @@ class MailServer(Thread):
 
     def run(self):
         print("mail_server -> started", threading.get_ident())
-        self.scheduler.every().day.at("20:54").do(self.send_email)
+        self.scheduler.every().day.at("21:00").do(self.send_email)
         # self.scheduler.every(30).seconds.do(self.send_email)
         # self.send_email()
         while not self.thread_stop:
