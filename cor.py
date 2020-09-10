@@ -5,6 +5,7 @@ import threading
 import schedule
 import time
 import os
+from selenium.webdriver.common.keys import Keys
 
 class WebScraper(Thread):
     thread_stop = False
@@ -47,6 +48,7 @@ class WebScraper(Thread):
                 cured = skgm_tds[i+2].get_attribute('innerHTML').strip().replace('\n','')
                 active = skgm_tds[i+3].get_attribute('innerHTML').strip().replace('\n','')
                 death = skgm_tds[i+4].get_attribute('innerHTML').strip().replace('\n','')
+                webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
 
                 districts.append([state,district, case, cured, active, death])
             print('Got values for state :', state)
@@ -68,7 +70,7 @@ class WebScraper(Thread):
             self.scrape_data()
             self.callback_func()
         else:
-            self.scheduler.every().day.at("15:20").do(self.scrape_data)
+            self.scheduler.every().day.at("08:45").do(self.scrape_data)
             # self.scheduler.every(1).minutes.do(self.scrape_data)
             # self.scrape_data()
             while not self.thread_stop:
