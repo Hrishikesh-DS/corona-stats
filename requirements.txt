@@ -12,6 +12,6 @@ requests==2.24.0
 tblib==1.4.0
 gunicorn==20.0.4
 selenium==3.141.0
-urllib3==1.25.9
+urllib3==1.26.5
 Werkzeug==1.0.1
 schedule==0.6.0
