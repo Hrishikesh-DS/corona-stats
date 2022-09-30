@@ -1,6 +1,6 @@
 Flask==1.1.2
 Flask-Mail==0.9.1
-joblib==0.13.2
+joblib==1.2.0
 Jinja2==2.11.2
 json5==0.8.4
 jsonschema==3.0.1
